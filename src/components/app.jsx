@@ -23,7 +23,7 @@ export const App = () => {
         </header>
         <main className="main">
             <form id="form-card">
-                <div className="form-input">
+                <div className="form-input active">
                     <label htmlFor="cardholder-name">CARDHOLDER NAME</label>
                     <input type="text" id="cardholder-name" placeholder="e.g. Jane Appleseed" />
                 </div>
