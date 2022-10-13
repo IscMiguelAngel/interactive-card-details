@@ -3,11 +3,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: hsl(270, 3%, 87%);
     font-family: 'Outfit', sans-serif;
+    min-width: 330px;
+    min-height: 650px;
 }
 
 .header {
@@ -25,6 +28,7 @@ body {
         position: relative;
         margin: 0 auto;
         .card {
+            transition: 0.5s;
             width: 300px;
             height: 170px;
             position: absolute;
@@ -33,7 +37,7 @@ body {
             .card-img {
                 width: 100%;
                 height: auto;
-                box-shadow: 0 0 20px rgb(30, 30, 30);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
                 border-radius: 10px;
             }
         }
@@ -42,7 +46,6 @@ body {
             top: 30px;
             right: 15px;
             z-index: 98;
-            
             #cvc-text {
                 position: absolute;
                 top: 48%;
@@ -50,15 +53,14 @@ body {
                 transform: translateY(-48%) translateX(-10%);
                 font-size: 1rem;
                 color: hsl(0, 0%, 100%);
+                text-transform: uppercase;
             }
         }
 
         .card.card-front {
             bottom: -45px;
             left: 15px;
-            z-index: 99;
-            
-            #number-text, #name-text, #mm-yy-text, .card-logo {
+            #number-text, #name-text, .card-mm-yy, .card-logo {
                 position: absolute;
                 color: hsl(0, 0%, 100%);
             }
@@ -77,25 +79,34 @@ body {
                 font-size: 1.2rem;
                 text-align: center;
                 letter-spacing: 0.2em;
+                text-transform: uppercase;
             }
 
             #name-text {
                 font-size: 0.8rem;
                 bottom: 20%;
                 left: 5%;
+                text-transform: uppercase;
             }
 
-            #mm-yy-text {
-                font-size: 0.8rem;
+            .card-mm-yy {
                 bottom: 20%;
                 right: 5%;
+                #mm-text, #yy-text {
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                }
             }
+        }
+
+        .card.active {
+            z-index: 99;
+            transition: 0.5s;
         }
     }
 }
 
 .main {
-    display: block;
     width: 100%;
     height: calc(100vh - 250px);
     display: flex;
@@ -107,13 +118,18 @@ body {
     }
 }
 
+.w-50 {
+    width: 50%;
+}
+
 .form-input {
+    width: 100%;
     border-bottom: 1px solid hsl(278, 68%, 11%);
     border-radius: 0;
-    margin-bottom: 20px;
+    margin: 0 5px 40px 5px;
     padding: 5px 15px;
     position: relative;
-    transition: ease-in-out 0.3s all;
+    transition: 0.3s;
     
     input {
         width: 100%;
@@ -125,21 +141,27 @@ body {
         border: none;
         outline: none;
         color: hsl(279, 6%, 55%);
+        text-transform: uppercase;
+        transition: 0.3s;
 
         &::-webkit-input-placeholder {
-            color:transparent;
+            color: transparent;
+            transition: 0.3s;
         }
          
         &::-moz-placeholder { /* Firefox 18- */
-        color:transparent; 
+            color: transparent; 
+            transition: 0.3s;
         }
          
         &::-moz-placeholder {  /* Firefox 19+ */
-        color:transparent; 
+            color: transparent; 
+            transition: 0.3s;
         }
          
         &::-ms-input-placeholder {  
-        color:transparent;
+            color: transparent;
+            transition: 0.3s;
         }
     }
     label {
@@ -148,19 +170,217 @@ body {
         top: 50%;
         transform: translateY(-50%);
         color: hsl(279, 6%, 55%);
+        transition: 0.3s;
     }
 }
 
 .form-input.active {
-    border-bottom: 1px solid hsl(249, 99%, 64%);
+    transition: 0.3s;
     label {
         top: -7px;
         left: 0;
         transform: translateY(-7px);
-        color: hsl(278, 68%, 11%);
+        color: hsl(249, 99%, 64%);
         font-weight: 600;
+        transition: 0.3s;
     }
     input {
-        color: hsl(249, 99%, 64%);
+        color: hsl(278, 68%, 11%);
+        transition: 0.3s;
+        &::-webkit-input-placeholder {
+            color: hsl(279, 6%, 55%);
+            transition: 0.3s;
+        }
+         
+        &::-moz-placeholder { /* Firefox 18- */
+            color: hsl(279, 6%, 55%); 
+            transition: 0.3s;
+        }
+         
+        &::-moz-placeholder {  /* Firefox 19+ */
+            color: hsl(279, 6%, 55%); 
+            transition: 0.3s;
+        }
+         
+        &::-ms-input-placeholder {  
+            color: hsl(279, 6%, 55%);
+            transition: 0.3s;
+        }
+    }
+}
+
+.form-input.required {
+    border-bottom: 1px solid hsl(0, 100%, 66%);
+}
+
+.form-input-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    width: 100%;
+    display: block;
+    padding: 20px 20px;
+    text-align: center;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.btn.btn-confirm {
+    background-color: hsl(278, 68%, 11%);
+    color: hsl(0, 0%, 100%);
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: hsl(279, 70%, 20%);
+    }
+    &:active {
+        background-color: hsl(278, 68%, 27%);
+    }
+}
+
+h1 {
+    margin: 30px 0;
+    color: hsl(278, 68%, 11%);
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.backdrop {
+    display: none;
+    transition: .5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999998;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(280, 45%, 6%, 0.85);
+}
+
+.alert {
+    display: none;
+    transition: .5s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+    transform: translateY(-50%) translateX(-50%);
+    background-color: hsl(0, 0%, 100%);
+    min-width: 300px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    .alert-header {
+        background-color: hsl(278, 68%, 11%);
+        padding: 10px;
+    }
+    .alert-body {
+        padding: 30px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgb(38, 152, 38);
+            position: relative;
+            span {
+                color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateY(-50%) translateX(-50%);
+            }
+        }
+        .text {
+            width: calc(100% - 50px);
+            padding: 0 10px;
+            text-align: center;
+            p {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
+
+.backdrop.show, .alert.show {
+    display: block;
+    transition: 0.5s;
+}
+
+@media screen and (min-width: 991px) {
+    .header {
+        float: left;
+        width: 30%;
+        height: 100vh;
+        background-image: url("../assets/bg-main-desktop.png");
+        position: relative;
+        .cards {
+            height: 470px;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            .card {
+                width: 350px;
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            .card.card-front {
+                left: 40%;
+                bottom: 0;
+
+                #number-text {
+                    top: 70%;
+                }
+    
+                #name-text {
+                    bottom: 10%;
+                }
+    
+                .card-mm-yy {
+                    bottom: 10%;
+                    right: 5%;
+                }
+            }
+            .card.card-back {
+                top: 10%;
+                right: 0;
+                left: 60%;
+
+                #cvc-text {
+                    top: 55%;
+                }
+            }
+        }
+    }
+    .main {
+        width: 70%;
+        height: 100vh;
+        min-height: 400px;
+        #form-card {
+            max-width: 400px;
+            margin-left: 200px;
+        }
+    }
+}
+
+@media screen and (min-width: 1448px) {
+    .main {
+        #form-card {
+            max-width: 600px;
+        }
     }
 }
